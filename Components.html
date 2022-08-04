@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비위너에 들어갈 컴퍼넌트</title>
+    <!-- <link rel="stylesheet" type="text/css" href="css/Normalize.css"> -->
+</head>
+<style>
+    body {
+        background-color: #333;
+    }
+
+    span {
+        color: white;
+    }
+
+    
+    /* 측정부분 CSS */
+    .estimation-item {
+        display: flex;
+        align-items: center;
+        margin : 5px auto;
+        height: 30px;
+        width: 100%;
+    }
+
+    .estimation-item .estimation-name {
+        width: 25%;
+        font-size: 15px;
+        text-align: right;
+    }
+
+    .estimation-item .gauge {
+        display: 'inline-block';
+        margin: 25px;
+        height: 60%;
+        width: 50%;
+        background-color: #555;
+        border-radius: 9999px;
+    }
+
+    .gaugevalue {
+        display: inline-block;
+        height: 100%;
+        width: 30px;
+        transition: width 1s;
+        background-color: red;
+        border-radius: 9999px;
+    }
+
+    .estimation-item img {
+        margin: 0 10px;
+        height: inherit;
+    }
+
+    .estimation-item .estimation-value {
+        width: auto;
+        font-size: 15px;
+    }
+
+
+    /* 운동부분 CSS */
+    .exercise-item {
+        width: 100%;
+        margin-top: 5px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+    }
+
+    .exercise-item .exercise-name {
+        width: 25%;
+        text-align: right;
+        font-size: 15px;
+    }
+
+    .exercise-item .fillers {
+        display: flex;
+        margin-left: 25px;
+        height: 100%;
+        width: 75%;
+        /* background-color: #fff; */
+        border-radius: 9999px;
+        justify-content: space-between;
+    }
+
+    .filler {
+        /* display: inline-block; */
+        /* aspect-ratio: 3; */
+        width: 30%;
+        height: 100%;
+        border-radius: 7px;
+        background-color: #555;
+    }
+
+    .exercise-item .exercise-value {
+        width: auto;
+        font-size: 12px;
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div id="estimation">
+            <div id="estimation-items">
+                <!-- 장고 프론트엔드로 id는 장고변수를 통해 설정, for문을 사용해서 다른 객체들 생성 -->
+                <div class="estimation-item" id="estimation-심폐지구력">
+                    <span class="estimation-name">
+                        심폐지구력
+                        <!-- 장고 프론트엔드로 변수 넣어야 하는 공간 -->
+                    </span>
+                    <div class="gauge">
+                        <div class="gaugevalue" id="gaugevalue-심폐지구력"></div>
+                    </div>
+                    <span class="estimation-value" id="s-value-심폐지구력">
+                        100%
+                        <!-- 장고 프론트엔드로 변수 넣어야 하는 공간 -->
+                    </span>
+                </div>
+                <!-- 여기까지 1개의 객체 -->
+            </div>
+            <button>측정하러 가기</button>
+        </div>
+        <div id="exercise">
+            <div id="exercise-items">
+                <!-- 장고 프론트엔드로 id는 장고변수를 통해 설정, for문을 사용해서 다른 객체들 생성 -->
+                <div class="exercise-item" id="exercise-심폐지구력">
+                    <span class="exercise-name">
+                        5M 셔틀런
+                        <!-- 장고 프론트엔드로 변수 넣어야 하는 공간 -->
+                    </span>
+                    <div class="fillers">
+                        <!-- 장고 프론트엔드로 id는 장고변수를 통해 설정 -->
+                        <div class="filler" id="filler-1-심폐지구력"></div>
+                        <div class="filler" id="filler-2-심폐지구력"></div>
+                        <div class="filler" id="filler-3-심폐지구력"></div>
+                    </div>
+                    <!-- <span class="exercise-value" id="x-value-심폐지구력">
+                        1/3 완료했습니다.
+                        장고 프론트엔드로 변수 넣어야 하는 공간
+                    </span> -->
+                </div>
+                <!-- 여기까지 1개의 객체 -->
+            </div>
+            <button>운동하러 가기</button>
+        </div>        
+    </div>
+</body>
+<script>
+
+    //데이터셋은 view파일에서 불러와야함 이거는 더미데이터
+    estimation_dataset = [{
+            name: '심폐지구력',
+            value: 50,
+        },
+        // {
+        //     name: '순발력',
+        //     value: 80,
+        // },
+        // {
+        //     name: '근지구력',
+        //     value: 60,
+        // },
+        // {
+        //     name: '민첩성',
+        //     value: 40,
+        // },
+        // {
+        //     name: '균형',
+        //     value: 100,
+        // }
+    ]
+
+    exercise_dataset = [{
+            name: '심폐지구력',
+            number: 1,
+        },
+        // {
+        //     name: '순발력',
+        //     number: 1,
+
+        // },
+        // {
+        //     name: '근지구력',
+        //     number: 1,
+            
+        // },
+        // {
+        //     name: '민첩성',
+        //     number: 2,
+        //     novation: 'good',
+        // },
+        // {
+        //     name: '균형',
+        //     number: 3,
+        //     novation: 'good',
+        // },
+    ]
+    //데이터셋은 여기까지
+
+
+
+
+    window.onload = function () {
+        //측정부분 데이터 입력 알고리즘
+        for (var i = 0; i < estimation_dataset.length; i++) {
+            gauge = document.getElementById("gaugevalue-" + estimation_dataset[i].name);
+            gauge.style.width = estimation_dataset[i].value + "%"
+        }
+
+        //운동부분 데이터 입력 알고리즘
+        for (var i = 0; i < exercise_dataset.length; i++){
+            var color = '#555'
+            if(exercise_dataset[i].number == 1) color = 'gold';
+            if(exercise_dataset[i].number == 2) color = 'lightgreen';
+            if(exercise_dataset[i].number == 3) color = 'royalblue';
+            for(var j = 0; j < exercise_dataset[i].number; j++){
+                filler = document.getElementById("filler-"+(j+1)+"-"+exercise_dataset[i].name);
+                filler.style.backgroundColor = color
+            }
+        }
+    }
+
+</script>
+
+</html>
