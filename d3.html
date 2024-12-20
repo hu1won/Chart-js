@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Combined Chart Example</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        svg { margin: 20px; }
+        .axis path, .axis line { fill: none; shape-rendering: crispEdges; }
+        .line { fill: none; stroke-width: 2; }
+        .bar { fill: steelblue; }
+        .bar:hover { fill: orange; }
+        .dot { fill: steelblue; }
+        .tooltip { position: absolute; text-align: center; padding: 10px; background: rgba(0, 0, 0, 0.7); color: white; border-radius: 5px; pointer-events: none; opacity: 0; }
+    </style>
+</head>
+<body>
+
+<h1>D3.js Combined Chart: Agricultural Data</h1>
+
+<!-- Container for the combined chart -->
+<div id="combinedChart"></div>
+
+<!-- Tooltip for displaying values on hover -->
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// Sample data (for demonstration purposes)
+const data = [
+    { year: 2023, flowerCount: 120, leafCount: 150, flowerLeafRatio: 0.8 },
+    { year: 2024, flowerCount: 130, leafCount: 160, flowerLeafRatio: 0.81 },
+    { year: 2025, flowerCount: 135, leafCount: 170, flowerLeafRatio: 0.79 },
+    { year: 2026, flowerCount: 140, leafCount: 175, flowerLeafRatio: 0.82 }
+];
+
+// Set chart dimensions
+const margin = { top: 20, right: 20, bottom: 60, left: 50 };
+const width = 800 - margin.left - margin.right;
+const height = 400 - margin.top - margin.bottom;
+
+// Create the combined chart svg
+const svg = d3.select('#combinedChart').append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+  .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+// Create x and y scales for both axes
+const x = d3.scaleBand().domain(data.map(d => d.year)).range([0, width]).padding(0.1);
+const y1 = d3.scaleLinear().domain([0, d3.max(data, d => d.flowerCount)]).nice().range([height, 0]);
+const y2 = d3.scaleLinear().domain([0, d3.max(data, d => d.leafCount)]).nice().range([height, 0]);
+const y3 = d3.scaleLinear().domain([0, 1]).nice().range([height, 0]);
+
+// Add the bar chart (leaf count)
+svg.append('g')
+    .selectAll('.bar')
+    .data(data)
+  .enter().append('rect')
+    .attr('class', 'bar')
+    .attr('x', d => x(d.year))
+    .attr('y', d => y2(d.leafCount))
+    .attr('width', x.bandwidth())
+    .attr('height', d => height - y2(d.leafCount))
+    .on('mouseover', function(event, d) {
+        const tooltip = d3.select('#tooltip');
+        tooltip.transition().duration(200).style('opacity', 1);
+        tooltip.html(`Year: ${d.year}<br>Leaf Count: ${d.leafCount}`)
+            .style('left', `${event.pageX + 5}px`)
+            .style('top', `${event.pageY - 28}px`);
+    })
+    .on('mouseout', function() {
+        const tooltip = d3.select('#tooltip');
+        tooltip.transition().duration(500).style('opacity', 0);
+    });
+
+// Add the line chart (flower count)
+const line = d3.line()
+    .x(d => x(d.year) + x.bandwidth() / 2)
+    .y(d => y1(d.flowerCount));
+
+svg.append('path')
+    .data([data])
+    .attr('class', 'line')
+    .attr('d', line)
+    .style('stroke', 'steelblue')
+    .style('stroke-width', 2)
+    .style('fill', 'none');
+
+// Add scatter plot (flower leaf ratio)
+svg.selectAll('.dot')
+    .data(data)
+  .enter().append('circle')
+    .attr('class', 'dot')
+    .attr('cx', d => x(d.year) + x.bandwidth() / 2)
+    .attr('cy', d => y3(d.flowerLeafRatio))
+    .attr('r', 5)
+    .style('fill', 'orange')
+    .on('mouseover', function(event, d) {
+        const tooltip = d3.select('#tooltip');
+        tooltip.transition().duration(200).style('opacity', 1);
+        tooltip.html(`Year: ${d.year}<br>Flower Leaf Ratio: ${d.flowerLeafRatio}`)
+            .style('left', `${event.pageX + 5}px`)
+            .style('top', `${event.pageY - 28}px`);
+    })
+    .on('mouseout', function() {
+        const tooltip = d3.select('#tooltip');
+        tooltip.transition().duration(500).style('opacity', 0);
+    });
+
+// Add x and y axes
+svg.append('g')
+    .attr('class', 'axis')
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(x));
+
+svg.append('g')
+    .attr('class', 'axis')
+    .call(d3.axisLeft(y1));
+
+// Add y2 axis on the right for the leaf count
+svg.append('g')
+    .attr('class', 'axis')
+    .attr('transform', `translate(${width},0)`)
+    .call(d3.axisRight(y2));
+
+// Add y3 axis on the right for the flower leaf ratio
+svg.append('g')
+    .attr('class', 'axis')
+    .attr('transform', `translate(${width},0)`)
+    .call(d3.axisRight(y3));
+
+// Add labels for the axes
+svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', height + margin.bottom - 10)
+    .style('text-anchor', 'middle')
+    .text('Year');
+
+svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', -height / 2)
+    .attr('y', -margin.left + 20)
+    .style('text-anchor', 'middle')
+    .text('Flower Count');
+
+svg.append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('x', height / 2)
+    .attr('y', width + margin.right - 20)
+    .style('text-anchor', 'middle')
+    .text('Leaf Count & Flower Leaf Ratio');
+
+</script>
+</body>
+</html>
