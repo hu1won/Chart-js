@@ -16,6 +16,14 @@ export interface YearlyData {
     crop5: number;
   }
   
+  export interface TooltipPayload {
+    name: string;
+    value: number;
+    color: string;
+    dataKey: string;
+    payload: YearlyData | CropData;
+  }
+  
   // Generate yearly data from 2011 to 2022
   export const jejuLandUse: YearlyData[] = Array.from({ length: 12 }, (_, i) => ({
     year: 2011 + i,
@@ -53,5 +61,18 @@ export interface YearlyData {
     crop4: Math.max(0, 500 + Math.cos(i * 0.55) * 200),
     crop5: Math.max(0, 400 + Math.sin(i * 0.25) * 150)
   }));
+  
+  export const COLORS = {
+    type1: "#d32f2f",
+    type2: "#f57c00",
+    type3: "#ffd54f",
+    type4: "#aed581",
+    type5: "#81c784",
+    crop1: "#2196f3",
+    crop2: "#f44336",
+    crop3: "#ff9800",
+    crop4: "#4caf50",
+    crop5: "#9c27b0"
+  } as const;
   
   

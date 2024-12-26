@@ -19,6 +19,8 @@ import {
   jejuCropData,
   seogwipoCropData
 } from '@/data/landUseData'
+import { Payload } from 'recharts/types/component/DefaultTooltipContent';
+import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
 const COLORS = {
   type1: "#d32f2f",
@@ -32,6 +34,10 @@ const COLORS = {
   crop4: "#4caf50",
   crop5: "#9c27b0"
 };
+
+interface TooltipEntry extends Payload<ValueType, NameType> {
+  color?: string;
+}
 
 export default function Button10() {
   return (
@@ -56,11 +62,11 @@ export default function Button10() {
                       return (
                         <div className="bg-white p-2 border border-gray-200 rounded-lg shadow-sm">
                           <p className="font-semibold">{`${label}년`}</p>
-                          {payload.reverse().map((entry: any) => (
+                          {payload.reverse().map((entry: TooltipEntry) => (
                             <p
                               key={entry.name}
                               style={{ color: entry.color }}
-                            >{`${entry.name}: ${entry.value.toFixed(3)}`}</p>
+                            >{`${entry.name}: ${Number(entry.value).toFixed(3)}`}</p>
                           ))}
                         </div>
                       );
@@ -135,11 +141,11 @@ export default function Button10() {
                       return (
                         <div className="bg-white p-2 border border-gray-200 rounded-lg shadow-sm">
                           <p className="font-semibold">{`${label}년`}</p>
-                          {payload.reverse().map((entry: any) => (
+                          {payload.reverse().map((entry: TooltipEntry) => (
                             <p
                               key={entry.name}
                               style={{ color: entry.color }}
-                            >{`${entry.name}: ${entry.value.toFixed(3)}`}</p>
+                            >{`${entry.name}: ${Number(entry.value).toFixed(3)}`}</p>
                           ))}
                         </div>
                       );
@@ -214,11 +220,11 @@ export default function Button10() {
                       return (
                         <div className="bg-white p-2 border border-gray-200 rounded-lg shadow-sm">
                           <p className="font-semibold">{`${label}년`}</p>
-                          {payload.reverse().map((entry: any) => (
+                          {payload.reverse().map((entry: TooltipEntry) => (
                             <p
                               key={entry.name}
                               style={{ color: entry.color }}
-                            >{`${entry.name}: ${entry.value.toFixed(0)}`}</p>
+                            >{`${entry.name}: ${Number(entry.value).toFixed(0)}`}</p>
                           ))}
                         </div>
                       );
@@ -258,11 +264,11 @@ export default function Button10() {
                       return (
                         <div className="bg-white p-2 border border-gray-200 rounded-lg shadow-sm">
                           <p className="font-semibold">{`${label}년`}</p>
-                          {payload.reverse().map((entry: any) => (
+                          {payload.reverse().map((entry: TooltipEntry) => (
                             <p
                               key={entry.name}
                               style={{ color: entry.color }}
-                            >{`${entry.name}: ${entry.value.toFixed(0)}`}</p>
+                            >{`${entry.name}: ${Number(entry.value).toFixed(0)}`}</p>
                           ))}
                         </div>
                       );
