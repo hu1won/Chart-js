@@ -6,9 +6,11 @@ import LineChart from "@/components/LineChart"
 import BarChart from "@/components/BarChart"
 import PieChart from "@/components/PieChart"
 import Button13 from "@/components/Button13"
+import Button14 from "@/components/Button14"
 import Button15 from "@/components/Button15"
-import Button17 from "@/components/Button17"
 import Button16 from "@/components/Button16"
+import Button17 from "@/components/Button17"
+
 export default function Home() {
   const [activeChart, setActiveChart] = useState<number | null>(null)
 
@@ -22,6 +24,8 @@ export default function Home() {
         return <PieChart />
       case 13:
         return <Button13 />
+      case 14:
+        return <Button14 />
       case 15:
         return <Button15 />
       case 16:
