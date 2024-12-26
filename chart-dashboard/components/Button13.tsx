@@ -84,6 +84,33 @@ const colors = [
 // 연도 추출
 const years = [...new Set(mockData[0].fruitData.map(d => d.year))];
 
+// 팝업 내 차트 컴포넌트
+const PopupChart = ({ data }: { data: FruitData[] }) => {
+  const chartData = data.map(d => ({
+    year: d.year,
+    당도: d.sweetness,
+    산도: d.acidity,
+    평균: (d.sweetness + d.acidity) / 2
+  }));
+
+  return (
+    <div style={{ width: '300px', height: '200px' }}>
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={chartData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="year" />
+          <YAxis domain={[0, 10]} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="당도" fill={colors[0]} />
+          <Bar dataKey="산도" fill={colors[1]} />
+          <Line type="monotone" dataKey="평균" stroke="#8884d8" strokeWidth={2} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
 export default function Button13() {
   const [selectedYear, setSelectedYear] = useState<number>(years[years.length - 1]);
   const [selectedMarker, setSelectedMarker] = useState<MarkerData | null>(null);
@@ -126,6 +153,14 @@ export default function Button13() {
             ))}
           </SelectContent>
         </Select>
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="조사회차" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="2차조사">2차조사</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <div className="h-[400px] w-full">
         <MapContainer center={[33.35, 126.5]} zoom={10} style={{ height: '100%', width: '100%' }}>
@@ -140,12 +175,10 @@ export default function Button13() {
               }}
             >
               <Popup>
-                마커 ID: {item.id}<br />
-                {item.fruitData.map(data => (
-                  <div key={data.year}>
-                    {data.year}년: 당도 {data.sweetness}, 산도 {data.acidity}
-                  </div>
-                ))}
+                <div>
+                  <h3>마커 ID: {item.id}</h3>
+                  <PopupChart data={item.fruitData} />
+                </div>
               </Popup>
             </Marker>
           ))}
@@ -165,9 +198,7 @@ export default function Button13() {
                       <div className="bg-white p-2 border">
                         <p>{`${label}년`}</p>
                         {payload.map((pld) => (
-                          <p key={pld.name}>
-                            {`${pld.name}: ${typeof pld.value === 'number' ? pld.value.toFixed(2) : pld.value}`}
-                          </p>
+                          <p key={pld.name}>{`${pld.name}: ${Number(pld.value).toFixed(2)}`}</p>
                         ))}
                       </div>
                     );
