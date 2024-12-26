@@ -45,12 +45,13 @@ export default function Button15() {
 
   // 지도가 로드된 후 범례 추가
   useEffect(() => {
-    if (mapRef.current) {
+    const map = mapRef.current;
+    if (map) {
       const legend = createLegend();
-      legend.addTo(mapRef.current);
+      legend.addTo(map);
 
       return () => {
-        if (mapRef.current) {
+        if (map) {
           legend.remove();
         }
       };
