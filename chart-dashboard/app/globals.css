@@ -78,3 +78,8 @@ body {
 .leaflet-container {
   z-index: 1;
 }
+
+.leaflet-container path.leaflet-interactive {
+  fill-opacity: 0.1;
+  fill: #ff7800;
+}
