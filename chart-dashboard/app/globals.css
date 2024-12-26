@@ -70,3 +70,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.candlestick-icon {
+  background: none;
+}
+
+.leaflet-container {
+  z-index: 1;
+}
