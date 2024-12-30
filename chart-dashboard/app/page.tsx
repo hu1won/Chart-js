@@ -14,6 +14,7 @@ import Button15 from "@/components/Button15"
 import Button15_1 from "@/components/Button15_1"
 import Button16 from "@/components/Button16"
 import Button17 from "@/components/Button17"
+import Button17_1 from "@/components/Button17_1"
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function Home() {
@@ -45,6 +46,8 @@ export default function Home() {
         return <Button16 />
       case 17:
         return <Button17 />
+      case 17.1:
+        return <Button17_1 />
       default:
         return null
     }
@@ -88,6 +91,16 @@ export default function Home() {
               }`}
             >
               15-1
+            </Button>
+            <Button 
+              onClick={() => setActiveChart(17.1)}
+              className={`text-sm py-2 px-3 rounded-full transition-all duration-200 ${
+                activeChart === 17.1 
+                  ? 'bg-indigo-600 text-white shadow-lg' 
+                  : 'bg-white text-indigo-600 hover:bg-indigo-100'
+              }`}
+            >
+              17-1
             </Button>
           </div>
         </Card>
