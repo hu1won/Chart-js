@@ -73,11 +73,11 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label })
 };
 
 const LineChartComponent: React.FC<{ data: CityData[], title: string, yAxisDomain: [number, number] }> = ({ data, title, yAxisDomain }) => (
-  <Card className="w-full h-[400px]">
+  <Card className="w-full h-[450px]">
     <CardHeader>
-      <CardTitle className="text-xl font-bold text-center text-gray-800">{title}</CardTitle>
+      <CardTitle className="text-lg font-bold text-center text-gray-800">{title}</CardTitle>
     </CardHeader>
-    <CardContent className="h-[320px]">
+    <CardContent className="h-[380px]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           data={data}
@@ -150,10 +150,11 @@ const LineChartComponent: React.FC<{ data: CityData[], title: string, yAxisDomai
 
 export default function Button17_1() {
   return (
-    <div className="space-y-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <LineChartComponent data={sweetnessData} title="당도 변화 (2020-2024)" yAxisDomain={[6, 8]} />
       <LineChartComponent data={acidityData} title="산도 변화 (2020-2024)" yAxisDomain={[0.5, 2]} />
       <LineChartComponent data={sugarAcidRatioData} title="당산비 변화 (2020-2024)" yAxisDomain={[4, 9]} />
     </div>
   )
 }
+
