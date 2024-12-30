@@ -8,11 +8,12 @@ import PieChart from "@/components/PieChart"
 import Button10 from "@/components/Button10"
 import Button12 from "@/components/Button12"
 import Button13 from "@/components/Button13"
+import Button13_1 from "@/components/Button13_1"
 import Button14 from "@/components/Button14"
 import Button15 from "@/components/Button15"
 import Button16 from "@/components/Button16"
 import Button17 from "@/components/Button17"
-import Button13_1 from "@/components/Button13_1"
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function Home() {
   const [activeChart, setActiveChart] = useState<number | null>(null)
@@ -47,20 +48,41 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto py-12">
-      <div className="w-full max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-center">Chart Dashboard</h1>
-        <div className="grid grid-cols-4 gap-4 mb-8">
-          {Array.from({ length: 24 }, (_, i) => (
-            <Button key={i} onClick={() => setActiveChart(i + 1)}>
-              {i + 1}
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-12">
+      <div className="container mx-auto max-w-6xl">
+        <h1 className="text-4xl font-bold mb-8 text-center text-indigo-800 shadow-text">차트 대시보드</h1>
+        <Card className="mb-8 p-6 bg-white bg-opacity-80 backdrop-blur-md">
+          <div className="grid grid-cols-10 gap-2">
+            {Array.from({ length: 24 }, (_, i) => (
+              <Button 
+                key={i} 
+                onClick={() => setActiveChart(i + 1)}
+                className={`text-sm py-2 px-3 rounded-full transition-all duration-200 ${
+                  activeChart === i + 1 
+                    ? 'bg-indigo-600 text-white shadow-lg' 
+                    : 'bg-white text-indigo-600 hover:bg-indigo-100'
+                }`}
+              >
+                {i + 1}
+              </Button>
+            ))}
+            <Button 
+              onClick={() => setActiveChart(13.1)}
+              className={`text-sm py-2 px-3 rounded-full transition-all duration-200 ${
+                activeChart === 13.1 
+                  ? 'bg-indigo-600 text-white shadow-lg' 
+                  : 'bg-white text-indigo-600 hover:bg-indigo-100'
+              }`}
+            >
+              13-1
             </Button>
-          ))}
-          <Button onClick={() => setActiveChart(13.1)}>13-1</Button>
-        </div>
-        <div className="bg-white p-6 rounded-lg shadow-lg min-h-[600px]">
-          {renderChart()}
-        </div>
+          </div>
+        </Card>
+        <Card className="bg-white bg-opacity-90 backdrop-blur-md shadow-xl rounded-xl overflow-hidden">
+          <CardContent className="p-6">
+            {renderChart()}
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

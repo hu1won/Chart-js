@@ -83,3 +83,7 @@ body {
   fill-opacity: 0.1;
   fill: #ff7800;
 }
+
+.shadow-text {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
