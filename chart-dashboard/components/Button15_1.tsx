@@ -9,11 +9,19 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
+  TooltipProps
 } from 'recharts'
+import React from 'react';
 
-// Mock data for flower count by elevation from 2014 to 2024
-const flowerData = [
+interface FlowerData {
+  year: number;
+  under100m: number;
+  under200m: number;
+  above200m: number;
+}
+
+const flowerData: FlowerData[] = [
   { year: 2014, under100m: 1000, under200m: 1500, above200m: 2000 },
   { year: 2015, under100m: 1200, under200m: 1300, above200m: 2200 },
   { year: 2016, under100m: 900, under200m: 1600, above200m: 1800 },
@@ -27,12 +35,22 @@ const flowerData = [
   { year: 2024, under100m: 1400, under200m: 2100, above200m: 2000 },
 ];
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface CustomTooltipProps extends TooltipProps<number, string> {
+  active?: boolean;
+  payload?: Array<{
+    name: string;
+    value: number;
+    color: string;
+  }>;
+  label?: string;
+}
+
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white p-4 rounded-lg shadow-lg border border-gray-200">
         <p className="font-bold text-gray-800">{`${label}년`}</p>
-        {payload.map((entry: any, index: number) => (
+        {payload.map((entry, index) => (
           <p key={`item-${index}`} style={{ color: entry.color }}>
             {`${entry.name}: ${entry.value}`}
           </p>
