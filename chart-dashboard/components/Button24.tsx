@@ -20,8 +20,8 @@ export default function Button24() {
   const latestData = farmData[farmData.length - 1];
 
   return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="flex space-x-4">
+      <div className="w-1/3 space-y-4">
         <Card>
           <CardHeader>
             <CardTitle>계획 농가수</CardTitle>
@@ -42,7 +42,7 @@ export default function Button24() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="w-1/3">
         <CardHeader>
           <CardTitle>계획 vs 실제 농가수</CardTitle>
         </CardHeader>
@@ -63,7 +63,7 @@ export default function Button24() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="w-1/3">
         <CardHeader>
           <CardTitle>농업 지표</CardTitle>
         </CardHeader>
