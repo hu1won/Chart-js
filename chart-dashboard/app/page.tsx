@@ -12,6 +12,7 @@ import Button14 from "@/components/Button14"
 import Button15 from "@/components/Button15"
 import Button16 from "@/components/Button16"
 import Button17 from "@/components/Button17"
+import Button24 from "@/components/Button24"
 
 export default function Home() {
   const [activeChart, setActiveChart] = useState<number | null>(null)
@@ -38,6 +39,8 @@ export default function Home() {
         return <Button16 />
       case 17:
         return <Button17 />
+      case 24:
+        return <Button24 />
       default:
         return null
     }
