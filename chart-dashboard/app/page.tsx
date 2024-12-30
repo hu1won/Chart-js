@@ -12,7 +12,7 @@ import Button14 from "@/components/Button14"
 import Button15 from "@/components/Button15"
 import Button16 from "@/components/Button16"
 import Button17 from "@/components/Button17"
-import Button24 from "@/components/Button24"
+import Button13_1 from "@/components/Button13_1"
 
 export default function Home() {
   const [activeChart, setActiveChart] = useState<number | null>(null)
@@ -31,6 +31,8 @@ export default function Home() {
         return <Button12 />
       case 13:
         return <Button13 />
+      case 13.1:
+        return <Button13_1 />
       case 14:
         return <Button14 />
       case 15:
@@ -39,8 +41,6 @@ export default function Home() {
         return <Button16 />
       case 17:
         return <Button17 />
-      case 24:
-        return <Button24 />
       default:
         return null
     }
@@ -56,6 +56,7 @@ export default function Home() {
               {i + 1}
             </Button>
           ))}
+          <Button onClick={() => setActiveChart(13.1)}>13-1</Button>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg min-h-[600px]">
           {renderChart()}
