@@ -15,6 +15,7 @@ import Button15_1 from "@/components/Button15_1"
 import Button16 from "@/components/Button16"
 import Button17 from "@/components/Button17"
 import Button17_1 from "@/components/Button17_1"
+import Button20 from "@/components/Button20"
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function Home() {
@@ -48,6 +49,8 @@ export default function Home() {
         return <Button17 />
       case 17.1:
         return <Button17_1 />
+      case 20:
+        return <Button20 />
       default:
         return null
     }
