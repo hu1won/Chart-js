@@ -23,6 +23,7 @@ import Button19 from "@/components/Button19"
 import Button20 from "@/components/Button20"
 import Button21 from "@/components/Button21"
 import Button22 from "@/components/Button22"
+import Button23 from "@/components/Button23"
 import { Card, CardContent } from "@/components/ui/card"
 
 export default function Home() {
@@ -72,6 +73,8 @@ export default function Home() {
         return <Button21 />
       case 22:
         return <Button22 />
+      case 23:
+        return <Button23 />
       default:
         return null
     }
