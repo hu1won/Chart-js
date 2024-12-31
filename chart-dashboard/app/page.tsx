@@ -6,6 +6,7 @@ import LineChart from "@/components/LineChart"
 import BarChart from "@/components/BarChart"
 import PieChart from "@/components/PieChart"
 import Button8 from "@/components/Button8"
+import Button9 from "@/components/Button9"
 import Button10 from "@/components/Button10"
 import Button12 from "@/components/Button12"
 import Button13 from "@/components/Button13"
@@ -33,6 +34,8 @@ export default function Home() {
         return <PieChart />
       case 8:
         return <Button8 />
+      case 9:
+        return <Button9 />
       case 10:
         return <Button10 />
       case 12:
